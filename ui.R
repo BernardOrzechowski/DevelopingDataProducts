@@ -2,6 +2,11 @@ shinyUI(fluidPage(
       titlePanel("Regression model: visualisation / summary of the mtcars data set"),
       fluidRow(
             column(12,
+                   h3("Usage: Select the Regressand variable and one or more regressors. Various characteristisc about the created linear model will be displayed or plotted. ")    
+            )
+      ),
+      fluidRow(
+            column(12,
                    h3(textOutput('model'))    
             )
       ),
