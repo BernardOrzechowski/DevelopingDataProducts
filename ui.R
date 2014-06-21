@@ -13,6 +13,8 @@ shinyUI(fluidPage(
             #plotOutput('plot2'),
             #plotOutput('plot3'),
             #plotOutput('plot4')
+            h3(textOutput('model')),
+            h3(textOutput('type')),
             fluidRow(
                   column(8,
                          plotOutput('plot1')      

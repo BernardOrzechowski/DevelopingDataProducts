@@ -7,27 +7,43 @@ shinyServer(
       function(input, output, session) {
             output$outRegressors <- renderPrint(input$inRegressors)
             output$outRegressand <- renderPrint(input$regressand)
-            regressors <- do.call(paste, output$outRegressors, sep=" + "))
-
+            
+            regressors <- reactive({
+                  do.call(paste, c(as.list(input$inRegressors), sep=" + "))
+                  #do.call(paste, as.list(input$inRegressors, sep=' + '))
+                  #do.call(paste, c(as.list(names(mtcars)), sep=" + "))
+            })
+            
             formulaText <- reactive({
-                  paste(input$regressand, regressors, sep=" ~ ")
+                  paste(input$regressand,regressors() , sep=' ~ ')
+                  #do.call(paste, as.list(input$inRegressors, sep=' + '))
             })
 
-            fit <- lm(as.formula(formulaText()) , data = mtcars)
+            fit <- reactive({ 
+                  lm(as.formula(formulaText()) , data = mtcars)
+            })
+            
+            output$model <- renderText({
+            formulaText()
+            })
+            
+            output$type <- renderText({
+                  regressors()
+            })
             
             output$plot1 <- renderPlot({
-                  plot(fit, which = 1)
+                  plot(fit(), which = 1)
             })
             
             output$plot2 <- renderPlot({      
-                  plot(fit, which = 2)
+                  plot(fit(), which = 2)
             })
             output$plot3 <- renderPlot({
-                  plot(fit, which = 3)
+                  plot(fit(), which = 3)
 
             })
             output$plot4 <- renderPlot({
-                  plot(fit, which = 4)
+                  plot(fit(), which = 4)
             })
             
       }
