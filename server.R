@@ -24,11 +24,7 @@ shinyServer(
             })
             
             output$model <- renderText({
-            formulaText()
-            })
-            
-            output$type <- renderText({
-                  regressors()
+                  paste("Model: ",formulaText(), sep = " ")
             })
             
             output$plot1 <- renderPlot({

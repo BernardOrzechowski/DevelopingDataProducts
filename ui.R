@@ -1,38 +1,35 @@
 shinyUI(fluidPage(
       titlePanel("Regression model experiments on the mtcars data set"),
-      sidebarLayout(
-      sidebarPanel(
-            selectInput('inRegressors', 'Regressors', names(mtcars), multiple=TRUE, selectize=FALSE),
-            #p("Chosen Predictor variables"),
-            #verbatimTextOutput('outRegressors'),
-            selectInput('regressand', 'Regressand variable', names(mtcars), multiple=FALSE, selectize=FALSE)
-            #verbatimTextOutput('outRegressand')
+      fluidRow(
+            column(3,
+                   selectInput('inRegressors', 'Regressors', names(mtcars), multiple=TRUE, selected = "am",selectize=FALSE)      
+            ),
+            column(3,
+                   selectInput('regressand', 'Regressand variable', names(mtcars), multiple=FALSE, selectize=FALSE)
+            ),
+            column(5,
+                   h3(textOutput('model'))
+            )
       ),
-      mainPanel(
-            #plotOutput('plot1'),
-            #plotOutput('plot2'),
-            #plotOutput('plot3'),
-            #plotOutput('plot4')
-            h3(textOutput('model')),
-            h3(textOutput('type')),
+      
+      
             fluidRow(
-                  column(8,
+                  column(6,
                          plotOutput('plot1')      
                   ),
-                  column(8,
+                  column(6,
                          plotOutput('plot2')
                   )
             ),
             fluidRow(
-                  column(8,
+                  column(6,
                          plotOutput('plot3')      
                   ),
-                  column(8,
+                  column(6,
                          plotOutput('plot4')
                   )
             )
             
-      )
-      )
-))
+ )
+)
 
